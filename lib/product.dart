@@ -5,7 +5,4 @@ class Product {
 
   //생성자
   Product(this.name, this.price);
-
-  //메서드 (함수)
-  
 }

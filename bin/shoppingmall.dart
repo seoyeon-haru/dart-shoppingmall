@@ -2,70 +2,43 @@ import 'dart:io';
 
 import 'package:shoppingmall/shopping_mall.dart';
 
-
-/* 판매하는 상품 목록 (List<product>)을 볼 수 있는 기능
- 1을 입력했을 때 판매하고 있는 상품 목록을 출력
- 출력 형태: 상품명 / 상품 1개당 가격 원
- 반복문을 통해 상품의 정보를 하나씩 출력한다
- 셔츠 /45000원
- 원피스 / 30000원
- 반팔티 / 35000원
- 반바지 / 38000원
- 양말 / 5000원
- */
-
 void main() {
-  Shoppingmall mall= Shoppingmall();
+  Shoppingmall mall = Shoppingmall();
   while (true) {
     print('-' * 100);
     print('[1] 상품 목록 보기 [2] 장바구니에 담기 [3] 장바구니에 담긴 상품의 총 가격 보기 [4] 프로그램 종료');
     print('-' * 100);
     String? userInput = stdin.readLineSync();
     print(userInput);
-    if (userInput == '1') { 
+    if (userInput == '1') { //1을 입력했을 때 판매하는 상품 리스트 출력
       print('[상품 목록]');
       for (var product in mall.products) {
         print('${product.name} / ${product.price}원');
       }
-    } else if (userInput == '2') {
-      print('장바구니 담기 할거임');
-    } else if (userInput == '3') {
-      print('총 가격 보기');
-    } else if (userInput == '4') {
-      print('프로그램 종료');
+    } else if (userInput == '2') { // 구매자가 구매하고 싶은 상품들을 장바구니에 담을 수 있는 기능
+      print('상품명을 입력해주세요.');// 2를 입력했을 대 장바구니에 담을 상품 이름(String)과 상품 개수(int)를 입력
+      String? userInputProduct = stdin.readLineSync();
+      if (userInputProduct == null) {
+        continue;
+      }
+      print('수량을 입력해주세요.');
+      String? userInputQty = stdin.readLineSync();
+      if (userInputQty == null) {
+        continue;
+      }
+      int? qty =int.tryParse(userInputQty); // int.parse()를 통해 입력한 상품의 개수를 int 타입으로 변환할 수 있음
+      if(qty == null) {
+        print('올바른 수량을 입력해주세요');
+        continue;
+      }
+      mall.addToCart(userInputProduct, qty);
+    } else if (userInput == '3') { // 3을 입력했을 때 구매자가 장바구니에 담은 상품들의 총 가격(int)을 계산하여 출력
+      mall.showTotal(); // 장바구니에 [가격]원 어치를 담으셨네요 ! 출력
+    } else if (userInput == '4') { // 4를 입력했을 때 쇼핑몰 프로그램이 종료됨
+      print('이용해 주셔서 감사합니다~ 안녕히 가세요!'); // 이용해 주셔서 감사합니다~ 안녕히 가세요! 출력 후 프로그램 종료
       return;
     } else {
       print('올바른 값을 입력해주세요');
     }
   }
-  /*판매하는 상품 목록 (List<product>)을 볼 수 있는 기능
-  print('셔츠 / 45000원');
-  print('원피스 / 30000원');
-  print('반팔티 / 35000원');
-  print('반바지 / 38000원');
-  print('양말 / 5000원');
-  */
-
-// 1을 입력했을 때 판매하고 있는 상품 목록을 출력
-
-// 구매자가 구매하고 싶은 상품들을 장바구니에 담을 수 있는 기능
-// 2를 입력했을 대 장바구니에 담을 상품 이름(String)과 상품 개수(int)를 입력
-// 입력한 상품의 이름이 상품 목록에 있지 않거나 상품의 개수가 0 이하의 값이면 장바구니에 담기지 않음
-// 상품 목록에 없는 상품의 이름을 입력한 경우 "입력값이 올바르지 않아요 !"출력 아마도? switch
-// 상품의 개수를 숫자 형태로 입력하지 않은 경우 "입력값이 올바르지 않아요 !"출력 아마도? switch
-// 입력한 상품의 개수가 0 이하의 수인 경우 "0개보다 많은 개수의 상품만 담을 수 있어요 !"출력
-// 입력한 상품의 이름과 상품의 개수가 올바른 값이면 장바구니에 담기며 "장바구니에 상품이 담겼어요 !"출력
-// 조건문과 try-catch 문을 통해 입력값에 대한 처리를 할 수 있음
-// contains() 또는 고차 함수를 통해 입력한 상품의 이름이 상품 목록에 있는지 판별할 수 있음
-// int.parse()를 통해 입력한 상품의 개수를 int 타입으로 변환할 수 있음
-// 장바구니에 담은 상품들의 총 가격을 담기 위한 인스턴스 변수를 shoppingmall 클래스에 정의한 후 그 인스턴스 변수의 값에 더해줌
-
-// 구매자가 장바구니에 담은 상품들의 총 가격(int)을 볼 수 있는 기능
-// 3을 입력했을 때 구매자가 장바구니에 담은 상품들의 총 가격(int)을 계산하여 출력
-// 장바구니에 [가격]원 어치를 담으셨네요 ! 출력
-
-// 쇼핑몰 프로그램을 종료할 수 있는 기능
-// 4를 입력했을 때 쇼핑몰 프로그램이 종료됨
-// 이용해 주셔서 감사합니다~ 안녕히 가세요! 출력 후 프로그램 종료
-// while문을 사용하고 프로그램을 종료하기 위한 bool 타입의 변수로 while문 제어 조건문벨로그
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:shoppingmall/shoppingmall.dart' as shoppingmall;
+import 'package:shoppingmall/shopping_mall.dart';
+
 
 /* 판매하는 상품 목록 (List<product>)을 볼 수 있는 기능
  1을 입력했을 때 판매하고 있는 상품 목록을 출력
@@ -14,14 +15,18 @@ import 'package:shoppingmall/shoppingmall.dart' as shoppingmall;
  */
 
 void main() {
+  Shoppingmall mall= Shoppingmall();
   while (true) {
     print('-' * 100);
     print('[1] 상품 목록 보기 [2] 장바구니에 담기 [3] 장바구니에 담긴 상품의 총 가격 보기 [4] 프로그램 종료');
     print('-' * 100);
     String? userInput = stdin.readLineSync();
     print(userInput);
-    if (userInput == '1') {
-      print('상품 목록 출력할거임');
+    if (userInput == '1') { 
+      print('[상품 목록]');
+      for (var product in mall.products) {
+        print('${product.name} / ${product.price}원');
+      }
     } else if (userInput == '2') {
       print('장바구니 담기 할거임');
     } else if (userInput == '3') {

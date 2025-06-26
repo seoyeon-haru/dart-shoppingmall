@@ -35,8 +35,15 @@ void main() {
     } else if (userInput == '3') { // 3을 입력했을 때 구매자가 장바구니에 담은 상품들의 총 가격(int)을 계산하여 출력
       mall.showTotal(); // 장바구니에 [가격]원 어치를 담으셨네요 ! 출력
     } else if (userInput == '4') { // 4를 입력했을 때 쇼핑몰 프로그램이 종료됨
-      print('이용해 주셔서 감사합니다~ 안녕히 가세요!'); // 이용해 주셔서 감사합니다~ 안녕히 가세요! 출력 후 프로그램 종료
-      return;
+      print('정말 종료하시겠습니까?'); // 이용해 주셔서 감사합니다~ 안녕히 가세요! 출력 후 프로그램 종료
+      String? userInput = stdin.readLineSync();
+      if (userInput == '5') {
+       print('이용해 주셔서 감사합니다~ 안녕히 가세요!'); 
+       return;       
+      } else {
+        print('종료하지 않습니다');
+        continue;
+      }
     } else {
       print('올바른 값을 입력해주세요');
     }
